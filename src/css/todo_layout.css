@@ -48,3 +48,47 @@ input[type=email]:not(.browser-default):focus:not([readonly]) + label,
 input[type=password]:not(.browser-default):focus:not([readonly]) + label{
   color: #ec407a !important;
 }
+
+.header_container {
+  font-size: 30px;
+  color: white;
+  padding: 5px 5px 5px 5px;
+  border-radius: 10px; 
+  
+}
+
+.list_item_task_header, .list_item_due_date_header {
+  margin-right:210px;
+  margin-left: 15px;
+}
+
+.list_item_status_header {
+  margin-left: -50px;
+}
+
+.description, .due_date {
+  font-size: 23px;
+  display: inline-flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  text-align: right;
+  width: 280px;
+  line-height: 26px;
+  margin-bottom: 10px;  
+  /* margin-right: 30px; */
+}
+
+.completed {
+  font-size: 23px;
+  display: inline-flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  text-align: right;
+  width: 270px;
+  line-height: 26px;
+  margin-bottom: 10px;  
+}
+
+.assigned {
+  font-size:18px;
+}

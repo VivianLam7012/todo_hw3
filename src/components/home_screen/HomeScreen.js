@@ -6,7 +6,10 @@ import { firestoreConnect } from 'react-redux-firebase';
 import TodoListLinks from './TodoListLinks'
 
 class HomeScreen extends Component {
-
+    handleNewList = () => {
+        console.log("hi");
+        return <Redirect to="/todoList/:id" />;
+    }
     render() {
         if (!this.props.auth.uid) {
             return <Redirect to="/login" />;
