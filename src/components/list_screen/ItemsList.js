@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import ItemCard from './ItemCard';
 import { firestoreConnect } from 'react-redux-firebase';
+import { updateSorting } from '../../store/database/asynchHandler'
+
 
 class ItemsList extends React.Component {
     sortingTask = (e, list) => {
@@ -48,7 +50,16 @@ class ItemsList extends React.Component {
         e.stopPropagation();
 
         this.props.todoList.items = list;
-        this.forceUpdate();
+
+        const { props, state } = this;
+        const { firebase } = props;
+        const todoList = { ...state };
+
+        console.log(this.props.todoList.items)
+        console.log(list)
+        props.registerSorting(this.props.todoList, firebase, list);
+
+        // this.forceUpdate();
     }
 
     sortingDate = (e, list) => {
@@ -94,7 +105,15 @@ class ItemsList extends React.Component {
         e.stopPropagation();
 
         this.props.todoList.items = list;
-        this.forceUpdate();
+
+        const { props, state } = this;
+        const { firebase } = props;
+        const todoList = { ...state };
+
+        console.log(this.props.todoList.items)
+        console.log(list)
+        props.registerSorting(this.props.todoList, firebase, list);
+        // this.forceUpdate();
         // LOAD LIST
     }
 
@@ -140,10 +159,19 @@ class ItemsList extends React.Component {
         }
         e.stopPropagation();
         this.props.todoList.items = list;
-        this.forceUpdate();
+
+        const { props, state } = this;
+        const { firebase } = props;
+        const todoList = { ...state };
+
+        console.log(this.props.todoList.items)
+        console.log(list)
+        props.registerSorting(this.props.todoList, firebase, list);
+        // this.forceUpdate();
         // LOAD LIST
     }
 
+    
     render() {
         const todoList = this.props.todoList;
         const items = todoList.items;
@@ -151,20 +179,21 @@ class ItemsList extends React.Component {
         return (
             <div className="todo-lists section">
 
-                    <div className = "header_container grey darken-3">
+                    <div className = "badage header_container grey darken-3" >
                         <span className="list_item_task_header" onClick = {(e) => this.sortingTask(e, this.props.todoList.items)}>Task</span>
                         <span className="list_item_due_date_header"onClick = {(e) => this.sortingDate(e, this.props.todoList.items)}>Due Date </span>
                         <span className="list_item_status_header"onClick = {(e) => this.sortingStatus(e, this.props.todoList.items)}>Status</span>
                     </div>
                    
-                
-               
                 {items && items.map(function(item) {
                     item.id = item.key;
                     return (
                         <ItemCard todoList={todoList} item={item} />
                     );})
                 }
+                <div className = "addButton">
+                    <a class="btn-floating btn-medium waves-effect waves-light red"><i class="material-icons right">add</i> </a>            
+                </div>
             </div>
         );
     }
@@ -172,14 +201,19 @@ class ItemsList extends React.Component {
 
 const mapStateToProps = (state, ownProps) => {
     const todoList = ownProps.todoList;
+
     return {
         todoList,
         auth: state.firebase.auth,
     };
 };
 
+const mapDispatchToProps = dispatch => ({
+    registerSorting: (todoList, firebase,items ) => dispatch(updateSorting(todoList, firebase,items)),
+  });
+
 export default compose(
-    connect(mapStateToProps),
+    connect(mapStateToProps, mapDispatchToProps),
     firestoreConnect([
         { collection: 'todoLists' },
     ]),

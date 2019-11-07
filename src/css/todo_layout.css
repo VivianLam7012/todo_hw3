@@ -92,3 +92,12 @@ input[type=password]:not(.browser-default):focus:not([readonly]) + label{
 .assigned {
   font-size:18px;
 }
+
+.addButton {
+  margin-left:45%;
+}
+
+.todoListHeader {
+  margin-left:40%;
+
+}

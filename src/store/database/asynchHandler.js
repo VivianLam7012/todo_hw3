@@ -33,3 +33,33 @@ export const registerHandler = (newUser, firebase) => (dispatch, getState, { get
         dispatch(actionCreators.registerError);
     });
 };
+
+export const updateHandlerName = (todoList, firebase, newName) => (dispatch, getState, { getFirestore }) => {
+  const firestore = getFirestore();
+  firestore.collection("todoLists").doc(todoList.id).update({name: newName});
+};
+
+export const updateHandlerOwner = (todoList, firebase, newName) => (dispatch, getState, { getFirestore }) => {
+  const firestore = getFirestore();
+  firestore.collection("todoLists").doc(todoList.id).update({owner: newName});
+};
+
+export const updateSorting = (todoList, firebase, items) => (dispatch, getState, { getFirestore }) => {
+  const firestore = getFirestore();
+  firestore.collection("todoLists").doc(todoList.id).update({items: items});
+};
+
+export const updateNewList = (todoList, firebase, object) => (dispatch, getState, { getFirestore }) => {
+  const firestore = getFirestore();
+
+  // todoList.push(object);
+
+  // console.log(todoList);
+  // console.log(todoList.props);
+  // console.log(firestore.collection("todoLists").doc("todoLists").update({todoLists: todoLists}))
+  // console.log(firestore.collection("todoLists").doc('UNZi62rAt6dIsWig1m8S'));
+  // firestore.collection("todoLists").doc('UNZi62rAt6dIsWig1m8S').update({todoLists: todoList});
+
+  firestore.collection("todoLists").add(object);
+
+};

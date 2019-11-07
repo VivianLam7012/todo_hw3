@@ -4,15 +4,43 @@ import { compose } from 'redux';
 import { NavLink, Redirect } from 'react-router-dom';
 import { firestoreConnect } from 'react-redux-firebase';
 import TodoListLinks from './TodoListLinks'
+import { updateNewList} from '../../store/database/asynchHandler'
 
 class HomeScreen extends Component {
+    constructor(props) {
+        super(props);
+        // Don't call this.setState() here!
+        this.state = { bool: false };
+      }
     handleNewList = () => {
-        console.log("hi");
-        return <Redirect to="/todoList/:id" />;
+        let object = {
+            "name": "Unknown",
+            "owner": "Unknown",
+            "items": []
+        }
+        // this.props.todoLists.push(object);
+
+        const { props, state } = this;
+        const { firebase } = props;
+        const todoList = { ...state };
+
+        
+        props.registerNewList(this.props.todoLists, firebase, object);
+        // // this.forceUpdate();
+        // this.props.history.push('/todoList/4Fkrk1mtGxStuxZPMU2O');
+        this.setState({bool:true});
+        
+        // return <Redirect to="/todoList/:id" />;
     }
+
     render() {
         if (!this.props.auth.uid) {
             return <Redirect to="/login" />;
+        }
+
+        else if (this.state.bool) {
+            this.setState({bool:false})
+            return <Redirect to='/databaseTester' />;
         }
 
         return (
@@ -42,12 +70,17 @@ class HomeScreen extends Component {
 
 const mapStateToProps = (state) => {
     return {
+        todoLists: state.firestore.ordered.todoLists,
         auth: state.firebase.auth
     };
 };
 
+const mapDispatchToProps = dispatch => ({
+    registerNewList: (todoList, firebase, object) => dispatch(updateNewList(todoList, firebase, object)),
+  });
+
 export default compose(
-    connect(mapStateToProps),
+    connect(mapStateToProps, mapDispatchToProps),
     firestoreConnect([
       { collection: 'todoLists' },
     ]),
