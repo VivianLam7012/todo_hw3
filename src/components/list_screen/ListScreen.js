@@ -9,7 +9,6 @@ import { updateHandlerOwner } from '../../store/database/asynchHandler';
 import { updateSorting } from '../../store/database/asynchHandler';
 
 
-
 class ListScreen extends Component {
     state = {
         name: '',
@@ -17,6 +16,7 @@ class ListScreen extends Component {
     }
     //console.log(props);
     handleChangeName = (e) => {
+        e.preventDefault();
         const { target } = e;
         
         this.setState(state => ({
@@ -34,6 +34,8 @@ class ListScreen extends Component {
     }
 
     handleChangeOwner = (e) => {
+        e.preventDefault();
+
         const { target } = e;
         
         this.setState(state => ({
@@ -62,6 +64,9 @@ class ListScreen extends Component {
                 <div className = "todoListHeader">
                     <h4 className="grey-text text-darken-3">Todo List</h4>
                 </div>
+                <div className = 'trashCan'>
+                    <a class="btn-floating btn-large waves-effect waves-light teal lighten-1"><i class="material-icons left" >delete_sweep</i> </a>           
+                </div>
                 <div className="input-field">
                     <input input type="text" name="name" id="name" onChange={this.handleChangeName} defaultValue={todoList.name}/>
                     <label class="active" htmlFor="email">Name</label>
@@ -73,17 +78,21 @@ class ListScreen extends Component {
                     <label class = "active" htmlFor="password">Owner</label>
                 </div>
                 <ItemsList todoList={todoList} />
+
             </div>
         );
     }
 }
 
 const mapStateToProps = (state, ownProps) => {
-  const { id } = ownProps.match.params;
-  const { todoLists } = state.firestore.data;
+  const id= ownProps.match.params.id;
+  const todoLists  = state.firestore.data.todoLists;
   const todoList = todoLists ? todoLists[id] : null;
 
-  todoList.id = id; 
+  console.log(id)
+  console.log(todoLists)
+  console.log(todoList)
+  todoList.id = id;
 
   return {
     todoList,

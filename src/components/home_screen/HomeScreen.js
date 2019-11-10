@@ -40,7 +40,9 @@ class HomeScreen extends Component {
 
         else if (this.state.bool) {
             this.setState({bool:false})
-            return <Redirect to='/databaseTester' />;
+            // return <Link to = "/addItemScreen"
+            // return <Redirect to={'/todoList/' + 'EvjH0uhxrYgyEhP3VE4B' } />
+            return <Redirect to='/addItemScreen' />;
         }
 
         return (

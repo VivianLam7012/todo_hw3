@@ -2,9 +2,14 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import ItemCard from './ItemCard';
+import { Link } from 'react-router-dom';
+
 import { firestoreConnect } from 'react-redux-firebase';
 import { updateSorting } from '../../store/database/asynchHandler'
-
+import { Container, Button, lightColors, darkColors } from '../../../node_modules/react-floating-action-button'
+// import { Container, Button} from '../../../node_modules/react-floating-action-button'
+import { Fab, Action } from 'react-tiny-fab';
+import 'react-tiny-fab/dist/styles.css';
 
 class ItemsList extends React.Component {
     sortingTask = (e, list) => {
@@ -171,6 +176,13 @@ class ItemsList extends React.Component {
         // LOAD LIST
     }
 
+    addItem = () => {
+        return (
+                    <Link to='/addItemScreen' >
+                    </Link>
+        );
+    }
+
     
     render() {
         const todoList = this.props.todoList;
@@ -188,12 +200,16 @@ class ItemsList extends React.Component {
                 {items && items.map(function(item) {
                     item.id = item.key;
                     return (
-                        <ItemCard todoList={todoList} item={item} />
+                        <div>
+                         <ItemCard todoList={todoList} item={item} />
+                        </div>
+
                     );})
                 }
-                <div className = "addButton">
-                    <a class="btn-floating btn-medium waves-effect waves-light red"><i class="material-icons right">add</i> </a>            
+                <div className = "addButton" onClick = {this.addItem}>
+                    <a class="btn-floating btn-medium waves-effect waves-light pink accent-1"><i class="material-icons right">add</i> </a>            
                 </div>
+
             </div>
         );
     }

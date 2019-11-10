@@ -57,13 +57,14 @@ input[type=password]:not(.browser-default):focus:not([readonly]) + label{
   
 }
 
-.list_item_task_header, .list_item_due_date_header {
-  margin-right:210px;
-  margin-left: 15px;
+.list_item_task_header {
+  margin-right:20%;
+  margin-left: 2%;
 }
 
-.list_item_status_header {
-  margin-left: -50px;
+.list_item_due_date_header {
+  margin-left:5%;
+  margin-right:14%;
 }
 
 .description, .due_date {
@@ -87,6 +88,19 @@ input[type=password]:not(.browser-default):focus:not([readonly]) + label{
   width: 270px;
   line-height: 26px;
   margin-bottom: 10px;  
+  margin-left: -5%;
+}
+
+.not_completed {
+  font-size: 23px;
+  display: inline-flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  text-align: right;
+  width: 270px;
+  line-height: 26px;
+  margin-bottom: 10px;  
+  margin-left: -5%;
 }
 
 .assigned {
@@ -101,3 +115,28 @@ input[type=password]:not(.browser-default):focus:not([readonly]) + label{
   margin-left:40%;
 
 }
+
+.floating  {
+  margin-left: -14px;
+  margin-top: 70px;
+  display:absolute;
+}
+
+.FAB {
+  margin-top: -12%;
+  margin-bottom: 10%;
+  /* position:relative; */
+  /* margin-left: -800px;
+  /* z-index: 999; */
+  /* margin-bottom: -150px; */
+}
+
+.rtf {
+  position: absolute !important;
+}
+
+.trashCan {
+  margin-left: 90%;
+  margin-top: -3%;
+}
+

@@ -63,3 +63,19 @@ export const updateNewList = (todoList, firebase, object) => (dispatch, getState
   firestore.collection("todoLists").add(object);
 
 };
+
+export const updateMoveUp = (todoList, firebase) => (dispatch, getState, {getFirestore}) => {
+  const firestore = getFirestore();
+  firestore.collection("todoLists").doc(todoList.id).update({items: todoList.items});
+
+}
+
+export const updateMoveDown = (todoList, firebase) => (dispatch, getState, {getFirestore}) => {
+  const firestore = getFirestore();
+  firestore.collection("todoLists").doc(todoList.id).update({items: todoList.items});
+}
+
+export const updateRemoveItem = (todoList, firebase) => (dispatch, getState, {getFirestore}) => {
+  const firestore = getFirestore();
+  firestore.collection("todoLists").doc(todoList.id).update({items: todoList.items});
+}

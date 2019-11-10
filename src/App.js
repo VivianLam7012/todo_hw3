@@ -9,6 +9,10 @@ import RegisterScreen from './components/register_screen/RegisterScreen.js';
 import LoginScreen from './components/login_screen/LoginScreen.js';
 import HomeScreen from './components/home_screen/HomeScreen.js';
 import ListScreen from './components/list_screen/ListScreen.js';
+import ItemScreen from './components/item_screen/ItemScreen';
+import AddItemScreen from './components/item_screen/AddItemScreen';
+
+
 import DatabaseTester from './test/DatabaseTester'
 
 class App extends Component {
@@ -29,6 +33,9 @@ class App extends Component {
               <Route path="/login" component={LoginScreen} />
               <Route path="/todoList/:id" component={ListScreen} />
               <Route path="/:any" component={HomeScreen} />
+              <Route path="/itemScreen" component={ItemScreen} />
+              <Route path="/addItemScreen" component={AddItemScreen} />
+
             </Switch>
           </div>
         </BrowserRouter>

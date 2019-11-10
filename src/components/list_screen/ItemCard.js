@@ -1,11 +1,86 @@
 import React from 'react';
+import { Fab, Action } from 'react-tiny-fab';
+import 'react-tiny-fab/dist/styles.css';
+import { updateMoveUp } from '../../store/database/asynchHandler';
+import { updateMoveDown } from '../../store/database/asynchHandler';
+import { updateRemoveItem } from '../../store/database/asynchHandler';
+
+import { connect } from 'react-redux';
+import { compose } from 'redux';
+import { firestoreConnect } from 'react-redux-firebase';
 
 class ItemCard extends React.Component {
+    moveUp = (e, listBeingEdited, listItemIndex) => {
+        if (listItemIndex != 0) {
+            let temp = listBeingEdited[listItemIndex];
+            let before = listBeingEdited[listItemIndex-1]
+
+            let key = listBeingEdited[listItemIndex].key;
+            let tempKey = listBeingEdited[listItemIndex-1].key;
+
+            listBeingEdited[listItemIndex].key = tempKey;
+            listBeingEdited[listItemIndex-1].key = key;
+
+            listBeingEdited[listItemIndex] = before;
+            listBeingEdited[listItemIndex-1] = temp;
+    
+            const { props } = this;
+            const { firebase } = props;
+            props.registerMoveUp(this.props.todoList, firebase);
+
+        }
+        e.stopPropagation();
+
+    }
+
+    moveDown = (e, listBeingEdited, listItemIndex) => {
+       
+        if (listItemIndex != listBeingEdited.length-1) {
+            let temp = listBeingEdited[listItemIndex];
+            let before = listBeingEdited[listItemIndex+1]
+
+            let key = listBeingEdited[listItemIndex].key;
+            let tempKey = listBeingEdited[listItemIndex+1].key;
+
+            listBeingEdited[listItemIndex].key = tempKey;
+            listBeingEdited[listItemIndex+1].key = key;
+
+            listBeingEdited[listItemIndex] = before;
+            listBeingEdited[listItemIndex+1] = temp;
+
+            const { props } = this;
+            const { firebase } = props;
+            props.registerMoveDown(this.props.todoList, firebase);
+
+        }
+
+        e.stopPropagation();
+    }
+
+    itemRemove = (e, currentList, key) => {
+        if (key >= 0) {
+            currentList.splice(key,1);
+        }
+        e.stopPropagation();
+
+        for (var i = key; i < currentList.length; i++) {
+            currentList[i].key = currentList[i].key-1;
+        }
+
+        e.stopPropagation();
+
+        const { props } = this;
+        const { firebase } = props;
+        props.registerRemoveItem(this.props.todoList, firebase);    }
+
     render() {
+        
         const { item } = this.props;  
         return (
             <div className="card z-depth-0 todo-list-link white lighten-3">
                 <div className="card-content grey-text text-darken-3 ">
+
+                    
                     <span className="description">{item.description} </span>
                     <span className = "due_date"> {item.due_date}</span>
 
@@ -13,12 +88,45 @@ class ItemCard extends React.Component {
                     <span className= 'not_completed'> {item.completed == false && <span>Pending</span>}
                     </span> */}
                     {/* { item.completed ? <span> className = "completed"</span>: <span> className = "not_completed </span>} */} 
-                    <span className = "completed"> {item.completed ? "Completed": "Pending"}</span>
+                    {/* <font className = "completed" color = "green" > {item.completed ? "Completed" : "Pending"}</font> */}
+                    {item.completed ? <span className='completed'> {item.completed == true &&<font color = "green">Completed</font>} </span>
+                        : <span className='not_completed' > {item.completed == false &&<font color = "red">Pending</font>} </span>}
+
                     <div className="assigned">Assigned to: {item.assigned_to}</div>
+
+
+                    <div className = "FAB"> 
+                        <Fab         
+                            event="hover"
+                            position={{right: 50}}
+                            mainButtonStyles={{backgroundColor: '#64b5f6', marginRight: '-350px'}}
+                            icon='🖊️'
+                        >
+                            <div className = "floating">
+                                <a class="btn-floating red waves-effect" > <i class="material-icons" 
+                                    onClick = {(e) => this.moveUp(e, this.props.todoList.items, this.props.todoList.items.indexOf(this.props.item))} 
+                                    >arrow_upward</i></a>
+                                <a class="btn-floating yellow darken-1 waves-effect"><i class="material-icons"
+                                    onClick = {(e) => this.moveDown(e, this.props.todoList.items, this.props.todoList.items.indexOf(this.props.item))}
+                                    >arrow_downward</i></a>
+                                <a class="btn-floating green waves-effect"><i class="material-icons"
+                                    onClick = {(e) => this.itemRemove(e, this.props.todoList.items, this.props.todoList.items.indexOf(this.props.item))}
+                                    >close</i></a>
+                            </div>
+                               
+                        </Fab>
+                    </div>
 
                 </div>
             </div>
         );
     }
 }
-export default ItemCard;
+
+const mapDispatchToProps = dispatch => ({
+    registerMoveUp: (todoList, firebase) => dispatch(updateMoveUp(todoList, firebase)),
+    registerMoveDown: (todoList, firebase) => dispatch(updateMoveDown(todoList, firebase)),
+    registerRemoveItem: (todoList, firebase) => dispatch(updateRemoveItem(todoList, firebase)),
+  });
+
+  export default compose(connect(null, mapDispatchToProps))(ItemCard);
