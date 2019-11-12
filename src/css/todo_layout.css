@@ -140,9 +140,7 @@ input[type=password]:not(.browser-default):focus:not([readonly]) + label{
   margin-top: -3%;
 }
 
-
-
-.modal { 
+.modal23 { 
   position: fixed;
   top: 0;
   left: 0;
@@ -159,14 +157,14 @@ input[type=password]:not(.browser-default):focus:not([readonly]) + label{
   transition: all 0.35s ease-in;
 }
 
-.modal.is_visible {
+.modal23.is_visible {
   visibility: visible;
   opacity: 1;
   z-index: 1;
 
 }
 
-.modal_dialog {
+.modal23_dialog {
   width: 400px;
   position: relative;
   max-width: 800px;
@@ -201,6 +199,10 @@ input[type=password]:not(.browser-default):focus:not([readonly]) + label{
  
 .modal p + p {
   margin-top: 1rem;
+}
+
+.modal-footer {
+  
 }
 
 /* ANIMATIONS

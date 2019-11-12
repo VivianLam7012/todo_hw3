@@ -177,9 +177,9 @@ class ItemsList extends React.Component {
     }
 
     addItem = () => {
-        // return (
-        //     this.props.history.push('/addItemScreen')
-        // );
+        return (
+            this.props.history.push('/todoList/'+ this.props.todoList.id+'/addItemScreen')
+        );
     }
 
     

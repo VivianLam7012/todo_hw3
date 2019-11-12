@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import TodoListCard from './TodoListCard';
+import { firestoreConnect } from 'react-redux-firebase';
 
 class TodoListLinks extends React.Component {
     render() {
@@ -11,8 +12,8 @@ class TodoListLinks extends React.Component {
         return (
             <div className="todo-lists section">
                 {todoLists && todoLists.map(todoList => (
-                    <Link to={'/todoList/' + todoList.id} key={todoList.id}>
-                        <TodoListCard todoList={todoList} />
+                    <Link to={'/todoList/' + todoList.id} key={todoList.id} >
+                        <TodoListCard todoList={todoList} todoLists = {todoLists}/>
                     </Link>
                 ))}
             </div>
@@ -27,4 +28,6 @@ const mapStateToProps = (state) => {
     };
 };
 
-export default compose(connect(mapStateToProps))(TodoListLinks);
+export default compose(connect(mapStateToProps), firestoreConnect([
+    { collection: 'todoLists', orderBy: ['last_updated', 'desc']},
+  ]))(TodoListLinks);

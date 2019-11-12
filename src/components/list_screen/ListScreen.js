@@ -16,7 +16,7 @@ class ListScreen extends Component {
         name: '',
         owner: '',
     }
-    //console.log(props);
+
     handleChangeName = (e) => {
         e.preventDefault();
         const { target } = e;
@@ -85,35 +85,41 @@ class ListScreen extends Component {
             return <React.Fragment />
         }
 
+
         return (
+            
             <div className="container white">
-                <div>
-                    <Button href="#modal1" className="modal-trigger">Show Modal</Button>
-                    <Modal id="modal1" header="Modal Header" >
-                                Lorem ipsum dolor sit amet
-                    </Modal>
-                </div>
-                <div className="modal" id="modal_yes_no_dialog" ref="modal_yes_no_dialog" data-animation="slideInOutLeft">
-                    <div className="modal_dialog">
-                        <header className="dialog_header">
-                            Delete list?
-                        </header>
-                        <section className="dialog_content">
-                            <p><strong>Are you sure you want to delete this list?</strong></p>
-                        </section>
-                            <button id="dialog_yes_button" onClick = {() => this.removeList(this.props.todoList)} >Yes</button>
-                            <button id="dialog_no_button" onClick = {() => this.hideDialog()}>No</button>
-                        <footer className="dialog_footer">
-                            The list will not be retreivable.
-                        </footer>
-                    </div>
-                </div>
 
                 <div className = "todoListHeader">
                     <h4 className="grey-text text-darken-3">Todo List</h4>
                 </div>
-                <div className = 'trashCan'onClick = {() =>this.showDialog()}>
-                    <a class="btn-floating btn-large waves-effect waves-light teal lighten-1"><i class="material-icons left" >delete</i> </a>           
+                <div className = 'trashCan'>
+                    <div>
+                    <Button floating large href="#modal1" className="modal-trigger" >
+                    <i class="material-icons left " >delete</i> 
+
+                    </Button>
+                        <Modal id="modal1" header="Delete list?">
+                                                        
+                            <p><strong>Are you sure you want to delete this list?</strong></p>
+                            {/* <button class="waves-effect waves-green btn-flat modal-close">OPEN</button> */}
+
+                            <button class="waves-effect waves-green btn-flat modal-close " onClick = {() => this.removeList(this.props.todoList)}>Yes</button>
+                            <button class="waves-effect waves-green btn-flat modal-close">No</button>
+
+                            {/* <a class="waves-effect waves-light btn" onClick = {this.modal('close')}>No</a> */}
+                            
+                            {/* <button id="dialog_yes_button" onClick = {() => this.removeList(this.props.todoList)} >Yes</button> */}
+                            <footer className="dialog_footer">
+                                The list will not be retreivable.
+                            </footer> 
+
+                            {/* <span className = 'modal-footer'> 
+                            <button class="waves-effect waves-green btn-flat modal-close">OPEN</button>
+                                
+                            </span>     */}
+                        </Modal>
+                </div>           
                 </div>
                 <div className="input-field">
                     <input input type="text" name="name" id="name" onChange={this.handleChangeName} defaultValue={todoList.name}/>
@@ -125,7 +131,7 @@ class ListScreen extends Component {
                     <input className="active" type="text" name="owner" id="owner" onChange={this.handleChangeOwner} defaultValue={todoList.owner} />
                     <label class = "active" htmlFor="password">Owner</label>
                 </div>
-                <ItemsList todoList={todoList} todoLists = {this.props.todoLists} />
+                <ItemsList todoList={todoList} todoLists = {this.props.todoLists} history = {this.props.history} />
 
             </div>
         );

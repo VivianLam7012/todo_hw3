@@ -28,13 +28,14 @@ class App extends Component {
             <Navbar />
             <Switch>
               <Route exact path="/" component={HomeScreen} />
+              <Route path="/itemScreen" component={ItemScreen} />
+              <Route path="/todoList/:id/addItemScreen" component={AddItemScreen} />
               <Route path="/databaseTester" component={DatabaseTester} />
               <Route path="/register" component={RegisterScreen} />
               <Route path="/login" component={LoginScreen} />
               <Route path="/todoList/:id" component={ListScreen} />
               <Route path="/:any" component={HomeScreen} />
-              <Route path="/itemScreen" component={ItemScreen} />
-              <Route path="/addItemScreen" component={AddItemScreen} />
+              
             </Switch>
           </div>
         </BrowserRouter>
