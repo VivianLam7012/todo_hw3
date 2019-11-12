@@ -77,10 +77,9 @@ class ItemCard extends React.Component {
         
         const { item } = this.props;  
         return (
-            <div className="card z-depth-0 todo-list-link white lighten-3">
+            <div className="card z-depth-0 todo-list-link white lighten-3 ">
                 <div className="card-content grey-text text-darken-3 ">
-
-                    
+                
                     <span className="description">{item.description} </span>
                     <span className = "due_date"> {item.due_date}</span>
 
@@ -102,7 +101,7 @@ class ItemCard extends React.Component {
                             mainButtonStyles={{backgroundColor: '#64b5f6', marginRight: '-350px'}}
                             icon='🖊️'
                         >
-                            <div className = "floating">
+                            <div className = "floating ">
                                 <a class="btn-floating red waves-effect" > <i class="material-icons" 
                                     onClick = {(e) => this.moveUp(e, this.props.todoList.items, this.props.todoList.items.indexOf(this.props.item))} 
                                     >arrow_upward</i></a>

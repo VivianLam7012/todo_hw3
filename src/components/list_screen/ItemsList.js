@@ -177,10 +177,9 @@ class ItemsList extends React.Component {
     }
 
     addItem = () => {
-        return (
-                    <Link to='/addItemScreen' >
-                    </Link>
-        );
+        // return (
+        //     this.props.history.push('/addItemScreen')
+        // );
     }
 
     

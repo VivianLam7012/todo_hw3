@@ -25,8 +25,7 @@ class HomeScreen extends Component {
         const todoList = { ...state };
 
         
-        props.registerNewList(this.props.todoLists, firebase, object);
-        // // this.forceUpdate();
+        props.registerNewList(this.props.todoLists, firebase, object, this.props.history);
         // this.props.history.push('/todoList/4Fkrk1mtGxStuxZPMU2O');
         this.setState({bool:true});
         
@@ -41,8 +40,8 @@ class HomeScreen extends Component {
         else if (this.state.bool) {
             this.setState({bool:false})
             // return <Link to = "/addItemScreen"
-            // return <Redirect to={'/todoList/' + 'EvjH0uhxrYgyEhP3VE4B' } />
-            return <Redirect to='/addItemScreen' />;
+            // return <Redirect to={'/todoList/BBrNpfeiQNbZ5Ckc1Ebn' } />
+            // return <Redirect to='/addItemScreen' />;
         }
 
         return (
@@ -78,7 +77,7 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = dispatch => ({
-    registerNewList: (todoList, firebase, object) => dispatch(updateNewList(todoList, firebase, object)),
+    registerNewList: (todoList, firebase, object, history) => dispatch(updateNewList(todoList, firebase, object, history)),
   });
 
 export default compose(

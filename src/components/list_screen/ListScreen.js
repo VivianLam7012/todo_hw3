@@ -7,7 +7,9 @@ import { firestoreConnect } from 'react-redux-firebase';
 import { updateHandlerName } from '../../store/database/asynchHandler';
 import { updateHandlerOwner } from '../../store/database/asynchHandler';
 import { updateSorting } from '../../store/database/asynchHandler';
+import { updateDelete } from '../../store/database/asynchHandler';
 
+import { Modal, Button } from 'react-materialize';
 
 class ListScreen extends Component {
     state = {
@@ -51,6 +53,26 @@ class ListScreen extends Component {
         props.registerOwner(this.props.todoList, firebase, newOwner);
 
     }
+    showDialog = () => {
+        var object = this.refs.modal_yes_no_dialog;  
+        object.classList.add("is_visible");
+    }
+
+    hideDialog = () => {
+    var object = this.refs.modal_yes_no_dialog;  
+    object.classList.toggle("is_visible");
+    }
+
+    removeList = (listToRemove) => {
+        console.log(listToRemove)
+        console.log(this.props.todoLists)
+        const { props, state } = this;
+        const { firebase } = props;
+        props.registerDelete(this.props.todoLists, firebase, listToRemove);
+
+        this.props.history.push('/:any');
+        
+    }
 
     render() {
         const auth = this.props.auth;
@@ -59,13 +81,39 @@ class ListScreen extends Component {
             return <Redirect to="/" />;
         }
 
+        if(!todoList) {
+            return <React.Fragment />
+        }
+
         return (
             <div className="container white">
+                <div>
+                    <Button href="#modal1" className="modal-trigger">Show Modal</Button>
+                    <Modal id="modal1" header="Modal Header" >
+                                Lorem ipsum dolor sit amet
+                    </Modal>
+                </div>
+                <div className="modal" id="modal_yes_no_dialog" ref="modal_yes_no_dialog" data-animation="slideInOutLeft">
+                    <div className="modal_dialog">
+                        <header className="dialog_header">
+                            Delete list?
+                        </header>
+                        <section className="dialog_content">
+                            <p><strong>Are you sure you want to delete this list?</strong></p>
+                        </section>
+                            <button id="dialog_yes_button" onClick = {() => this.removeList(this.props.todoList)} >Yes</button>
+                            <button id="dialog_no_button" onClick = {() => this.hideDialog()}>No</button>
+                        <footer className="dialog_footer">
+                            The list will not be retreivable.
+                        </footer>
+                    </div>
+                </div>
+
                 <div className = "todoListHeader">
                     <h4 className="grey-text text-darken-3">Todo List</h4>
                 </div>
-                <div className = 'trashCan'>
-                    <a class="btn-floating btn-large waves-effect waves-light teal lighten-1"><i class="material-icons left" >delete_sweep</i> </a>           
+                <div className = 'trashCan'onClick = {() =>this.showDialog()}>
+                    <a class="btn-floating btn-large waves-effect waves-light teal lighten-1"><i class="material-icons left" >delete</i> </a>           
                 </div>
                 <div className="input-field">
                     <input input type="text" name="name" id="name" onChange={this.handleChangeName} defaultValue={todoList.name}/>
@@ -77,7 +125,7 @@ class ListScreen extends Component {
                     <input className="active" type="text" name="owner" id="owner" onChange={this.handleChangeOwner} defaultValue={todoList.owner} />
                     <label class = "active" htmlFor="password">Owner</label>
                 </div>
-                <ItemsList todoList={todoList} />
+                <ItemsList todoList={todoList} todoLists = {this.props.todoLists} />
 
             </div>
         );
@@ -89,13 +137,16 @@ const mapStateToProps = (state, ownProps) => {
   const todoLists  = state.firestore.data.todoLists;
   const todoList = todoLists ? todoLists[id] : null;
 
-  console.log(id)
-  console.log(todoLists)
-  console.log(todoList)
-  todoList.id = id;
+  if (todoList) {
+      todoList.id = id;
+  }
+//   console.log(id)
+//   console.log(todoLists)
+//   console.log(todoList)
+//   todoList.id = id;
 
   return {
-    todoList,
+    todoList, todoLists,
     auth: state.firebase.auth,
   };
 };
@@ -103,6 +154,8 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = dispatch => ({
     registerName: (todoList, firebase, newName) => dispatch(updateHandlerName(todoList, firebase, newName)),
     registerOwner: (todoList, firebase, newOwner) => dispatch(updateHandlerOwner(todoList, firebase, newOwner)),
+    registerDelete: (todoList, firebase, listToRemove) => dispatch(updateDelete(todoList, firebase, listToRemove)),
+
   });
 
 export default compose(

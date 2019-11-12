@@ -35,7 +35,6 @@ class App extends Component {
               <Route path="/:any" component={HomeScreen} />
               <Route path="/itemScreen" component={ItemScreen} />
               <Route path="/addItemScreen" component={AddItemScreen} />
-
             </Switch>
           </div>
         </BrowserRouter>
