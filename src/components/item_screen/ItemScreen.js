@@ -86,8 +86,6 @@ class ItemScreen extends Component {
 
     render() {
         const todoList = this.props.todoList;
-        // const id= this.props.match.params;
-
 
         if(!todoList) {
             return <React.Fragment />
@@ -103,10 +101,11 @@ class ItemScreen extends Component {
         console.log("\t\tItemScreen render");
         
         return (
-            <div id="todo_item"  className="container white" >
-            
-                <h5 id="item_heading">EDIT ITEM SCREEN</h5>
+            <div id="todo_item"  className="todo_item container white" >
+                
+                <h4 id="item_heading" class = "center  grey darken-3 z-depth-2 white-text">Edit Item</h4>
                 <div id="item_form_container" >
+                <br></br>
 
                     <div  className = "input-field"> 
                         <input type="text" id="description" onChange={this.handleDescriptionChange} defaultValue = {this.props.todoList.items[this.props.match.params.key].description}/>
@@ -117,20 +116,30 @@ class ItemScreen extends Component {
                         <input type="text" id="assign" onChange={this.handleAssignedToChange} defaultValue = {this.props.todoList.items[this.props.match.params.key].assigned_to}/>
                         <label class="active" for="assign">Assigned To</label> 
                     </div>
-                   
-                    {/* <label for = "date"> Due Date</label> */}
+
                     <DatePicker label = "Due Date" class = "active" onChange={this.handleDueDateChange} value = {this.props.todoList.items[this.props.match.params.key].due_date}/>
-                    
 
                     <label>
-                        <input type="checkbox" onChange={this.handleCompletedChange} defaultChecked = {this.props.todoList.items[this.props.match.params.key].completed}/>/>
+                        <input type="checkbox" onChange={this.handleCompletedChange} defaultChecked = {this.props.todoList.items[this.props.match.params.key].completed}/>
                         <span>Completed</span>
+                        <br></br>
+
                     </label>
+                    <br></br>
+
                 </div>
-                    <button class="waves-effect waves-green btn-flat modal-close " onClick={this.handleSubmit}>Submit</button>
-                    <button class="waves-effect waves-green btn-flat modal-close" onClick={this.handleCancel}>Cancel</button>
+                <button class="yes_button btn waves-effect waves-light pink" onClick={this.handleSubmit}>Submit
+                                <i class="material-icons right">send</i>
+                            </button>
+
+                            <button class="no_button btn waves-effect waves-light pink modal-close" onClick={this.handleCancel}>Cancel
+                                <i class="material-icons right">cloud</i>
+                            </button>
+                    {/* <button class="waves-effect waves-green btn-flat modal-close " onClick={this.handleSubmit}>Submit</button>
+                    <button class="waves-effect waves-green btn-flat modal-close" onClick={this.handleCancel}>Cancel</button> */}
 
             </div>
+            
         )
     }
 }

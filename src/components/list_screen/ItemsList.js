@@ -191,25 +191,29 @@ class ItemsList extends React.Component {
         return (
             <div className="todo-lists section">
 
+                    
+                    <div className = "listItems deep-orange lighten-4"> 
                     <div className = "badage header_container grey darken-3" >
                         <span className="list_item_task_header" onClick = {(e) => this.sortingTask(e, this.props.todoList.items)}>Task</span>
                         <span className="list_item_due_date_header"onClick = {(e) => this.sortingDate(e, this.props.todoList.items)}>Due Date </span>
                         <span className="list_item_status_header"onClick = {(e) => this.sortingStatus(e, this.props.todoList.items)}>Status</span>
                     </div>
-                   
-                {items && items.map(function(item) {
-                    item.id = item.key;
-                    return (
-                        <div>
-                         <ItemCard todoList={todoList} item={item}  history = {history} />
+                        {items && items.map(function(item) {
+                        item.id = item.key;
+                        return (
+                            <div>
+                            <ItemCard todoList={todoList} item={item}  history = {history} />
+                            </div>
+
+                            );})
+                        }
+                        <div className = "addButton center " onClick = {this.addItem}>
+                            <a class="btn-floating btn-medium waves-effect waves-light pink accent-1 "><i class="material-icons">add</i> </a>            
                         </div>
 
-                    );})
-                }
-                <div className = "addButton" onClick = {this.addItem}>
-                    <a class="btn-floating btn-medium waves-effect waves-light pink accent-1"><i class="material-icons right">add</i> </a>            
-                </div>
-
+                    </div>
+                   
+               
             </div>
         );
     }

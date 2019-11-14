@@ -46,9 +46,9 @@ class HomeScreen extends Component {
                             @todo<br />
                             List Maker
                         </div>
-                        
-                        <div className="home_new_list_container">
-                                <button className="home_new_list_button" onClick={this.handleNewList}>
+                        <br></br>
+                        <div className="home_new_list_container center">
+                                <button className="home_new_list_button waves-effect waves-lighten" onClick={this.handleNewList}>
                                     Create a New To Do List
                                 </button>
                         </div>

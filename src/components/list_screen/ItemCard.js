@@ -91,7 +91,7 @@ class ItemCard extends React.Component {
         
         const { item } = this.props;  
         return (
-            <div className="card z-depth-0 todo-list-link white lighten-3 " onClick = {(e) => this.editItem(e)}>
+            <div className="card z-depth-0 todo-list-link white waves-effect waves-red lighten-3" onClick = {(e) => this.editItem(e)}>
                 <div className="card-content grey-text text-darken-3 ">
                 
                     <span className="description">{item.description} </span>
@@ -110,27 +110,38 @@ class ItemCard extends React.Component {
                             icon='🖊️'
                         >
                             <div className = "floating">
-                                {item.key == 0 ? 
-                                
-                                <a class="btn-floating disabled waves-effect" > <i class="material-icons" 
-                                onClick = {(e) => this.disable(e)}
-                                >arrow_upward</i></a>:
+                                <div className = "moveUp">
+                                    {item.key == 0 ? 
+                                    
+                                    <a class="btn-floating disabled waves-effect" > <i class="material-icons" 
+                                    onClick = {(e) => this.disable(e)}
+                                    >arrow_upward</i></a>:
 
-                                <a class="btn-floating red waves-effect" > <i class="material-icons" 
-                                    onClick = {(e) => this.moveUp(e, this.props.todoList.items, this.props.todoList.items.indexOf(this.props.item))} 
-                                    >arrow_upward</i></a>}
+                                    <a class="btn-floating teal lighten-2 waves-effect"  > <i class="material-icons" 
+                                        onClick = {(e) => this.moveUp(e, this.props.todoList.items, this.props.todoList.items.indexOf(this.props.item))} 
+                                        >arrow_upward</i></a>}
+                                </div>
 
-                                {item.key == this.props.todoList.items.length - 1 ? 
-                                
-                                <a class="btn-floating disabled waves-effect" > <i class="material-icons" onClick = {this.disable} >arrow_downward</i></a>:
+                                <div className = "moveDown">
+                                    {item.key == this.props.todoList.items.length - 1 ? 
+                                    
+                                    <a class="btn-floating disabled waves-effect" > <i class="material-icons" onClick = {this.disable} >arrow_downward</i></a>:
 
-                                <a class="btn-floating yellow darken-1 waves-effect" > <i class="material-icons" 
-                                onClick = {(e) => this.moveDown(e, this.props.todoList.items, this.props.todoList.items.indexOf(this.props.item))}
-                                >arrow_downward</i></a>}
+                                    <a class="btn-floating deep-orange accent-2 waves-effect" > <i class="material-icons" 
+                                    onClick = {(e) => this.moveDown(e, this.props.todoList.items, this.props.todoList.items.indexOf(this.props.item))}
+                                    >arrow_downward</i></a>}
+                                </div> 
+
+                                <div className = "closeBtn">
+                                    <a class="btn-floating  amber darken-2 waves-effect"><i class="material-icons"
+                                        onClick = {(e) => this.itemRemove(e, this.props.todoList.items, this.props.todoList.items.indexOf(this.props.item))}
+                                        >close</i></a>
+                                </div>
+
+
+                               
                         
-                                <a class="btn-floating green waves-effect"><i class="material-icons"
-                                    onClick = {(e) => this.itemRemove(e, this.props.todoList.items, this.props.todoList.items.indexOf(this.props.item))}
-                                    >close</i></a>
+                                
                             </div>
                                
                         </Fab>

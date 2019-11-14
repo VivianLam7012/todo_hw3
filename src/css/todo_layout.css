@@ -68,12 +68,16 @@ input[type=password]:not(.browser-default):focus:not([readonly]) + label{
 }
 
 .list_item_due_date_header {
-  margin-left:5%;
+  margin-left:8%;
   margin-right:14%;
 }
 
 .list_item_due_date_header:hover {
   color:#ec407a;
+}
+
+.list_item_status_header {
+  margin-left: -6%
 }
 
 .list_item_status_header:hover {
@@ -100,7 +104,7 @@ input[type=password]:not(.browser-default):focus:not([readonly]) + label{
   width: 270px;
   line-height: 26px;
   margin-bottom: 10px;  
-  margin-left: -5%;
+  margin-left: -13%;
 }
 
 .not_completed {
@@ -112,7 +116,7 @@ input[type=password]:not(.browser-default):focus:not([readonly]) + label{
   width: 270px;
   line-height: 26px;
   margin-bottom: 10px;  
-  margin-left: -5%;
+  margin-left: -13%;
 }
 
 .assigned {
@@ -120,7 +124,12 @@ input[type=password]:not(.browser-default):focus:not([readonly]) + label{
 }
 
 .addButton {
-  margin-left:45%;
+  margin-top:1%;
+}
+
+.home_new_list_button {
+  padding: 7px 7px 7px 7px;
+  border-radius: 10px; 
 }
 
 .todoListHeader {
@@ -129,8 +138,9 @@ input[type=password]:not(.browser-default):focus:not([readonly]) + label{
 }
 
 .floating  {
-  margin-left: -14px;
-  margin-top: 70px;
+  margin-left: -25px;
+  margin-right: 20px;
+  margin-top: 65px;
   display:flex;
 }
 
@@ -142,7 +152,22 @@ input[type=password]:not(.browser-default):focus:not([readonly]) + label{
   /* z-index: 999; */
   /* margin-bottom: -150px; */
 }
+.no_button, .yes_button {
+  margin-right: 2%;
+  margin-bottom: 2%;
+}
 
+.no, .yes {
+  /* margin-left: 2%; */
+  margin-right: 2%;
+  margin-bottom: 2%;
+  margin-top: 2%;
+}
+
+.todo_item {
+  margin-top: 3%;
+  padding: 2%;
+}
 .rtf {
   position: absolute !important;
 }
@@ -152,6 +177,26 @@ input[type=password]:not(.browser-default):focus:not([readonly]) + label{
   margin-top: -3%;
 }
 
+.moveUp, .moveDown {
+  margin-left: 2%;
+  margin-right: 2%;
+}
+
+.moveDown {
+  margin-right: 4%;
+}
+
+.listItems {
+  padding: 10px 10px 10px 10px;
+  border-radius: 10px; 
+  border: 2px solid #424242 ;
+}
+
+
+.close {
+  margin-left: 5%;
+  margin-right: 3%;
+}
 .modal23 { 
   position: fixed;
   top: 0;

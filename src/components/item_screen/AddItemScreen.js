@@ -72,9 +72,9 @@ class AddItemScreen extends Component {
         console.log("\t\tItemScreen render");
 
         return (
-            <div id="todo_item"  className="container white">
+            <div id="todo_item"  className="todo_item container white">
             
-                <h5 id="item_heading">ADD ITEM SCREEN</h5>
+            <h4 id="item_heading" class = "center  grey darken-3 z-depth-2 white-text">Add Item</h4>
 
                 <div id="item_form_container">
                     <TextInput label="Description" onChange={this.handleDescriptionChange} />
@@ -82,8 +82,16 @@ class AddItemScreen extends Component {
                     <DatePicker label ="Due Date"  onChange={this.handleDueDateChange}/>
                     <Checkbox value="Red" label="Completed" onChange={this.handleCompletedChange}/>
                 </div>
-                    <button class="waves-effect waves-green btn-flat modal-close " onClick={this.handleSubmit}>Submit</button>
-                    <button class="waves-effect waves-green btn-flat modal-close" onClick={this.handleCancel}>Cancel</button>
+
+                    {/* <button class="waves-effect waves-green btn-flat modal-close " onClick={this.handleSubmit}>Submit</button>
+                    <button class="waves-effect waves-green btn-flat modal-close" onClick={this.handleCancel}>Cancel</button> */}
+                       <button class="yes btn waves-effect waves-light pink" onClick={this.handleSubmit}>Submit
+                                <i class="material-icons right">send</i>
+                            </button>
+
+                            <button class="no btn waves-effect waves-light pink modal-close" onClick={this.handleCancel}>Cancel
+                                <i class="material-icons right">cloud</i>
+                            </button>
 
             </div>
         )

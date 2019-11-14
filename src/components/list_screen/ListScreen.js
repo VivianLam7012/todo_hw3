@@ -88,7 +88,7 @@ class ListScreen extends Component {
 
         return (
             
-            <div className="container white">
+            <div className="todo_item container white">
 
                 <div className = "todoListHeader">
                     <h4 className="grey-text text-darken-3">Todo List</h4>
@@ -96,36 +96,32 @@ class ListScreen extends Component {
                 <div className = 'trashCan'>
                     <div>
                     <Button floating large href="#modal1" className="modal-trigger"  >
-                    <i class="material-icons left " >delete</i> 
+                    <i class="material-icons left purple lighten-2" >delete</i> 
 
-                    </Button>
+                    </Button >
                         <Modal id="modal1" header="Delete list?" actions = {<p modal = "close"> </p>}>
                                 
                             <p><strong>Are you sure you want to delete this list?</strong></p>
-                            {/* <button class="waves-effect waves-green btn-flat modal-close">OPEN</button> */}
+                            <button class="yes_button btn waves-effect waves-light blue lighten-2" onClick = {() => this.removeList(this.props.todoList)}>Yes
+                                <i class="material-icons right">send</i>
+                            </button>
 
-                            <button class="waves-effect waves-green btn-flat modal-close " onClick = {() => this.removeList(this.props.todoList)}>Yes</button>
-                            <button class="waves-effect waves-green btn-flat modal-close">No</button>
-
-                            {/* <a class="waves-effect waves-light btn" onClick = {this.modal('close')}>No</a> */}
-                            
-                            {/* <button id="dialog_yes_button" onClick = {() => this.removeList(this.props.todoList)} >Yes</button> */}
+                            <button class="no_button btn waves-effect waves-light blue lighten-2 modal-close">No
+                                <i class="material-icons right">cloud</i>
+                            </button>
+                            {/* <button class="waves-effect waves-green btn-flat modal-close " onClick = {() => this.removeList(this.props.todoList)}>Yes</button>
+                            <button class="waves-effect waves-green btn-flat modal-close">No</button> */}
+                          
                             <footer className="dialog_footer">
                                 The list will not be retreivable.
                             </footer> 
-
-                            {/* <span className = 'modal-footer'> 
-                            <button class="waves-effect waves-green btn-flat modal-close">OPEN</button>
-                                
-                            </span>     */}
                         </Modal>
                 </div>           
                 </div>
                 <div className="input-field">
                     <input input type="text" name="name" id="name" onChange={this.handleChangeName} defaultValue={todoList.name}/>
                     <label class="active" htmlFor="email">Name</label>
-                    {/* <label htmlFor="email">Name</label> */}
-                    {/* <input type="text" name="name" id="name" onChange={this.handleChange} value={todoList.name} /> */}
+                   
                 </div>
                 <div className="input-field">
                     <input className="active" type="text" name="owner" id="owner" onChange={this.handleChangeOwner} defaultValue={todoList.owner} />
@@ -146,10 +142,6 @@ const mapStateToProps = (state, ownProps) => {
   if (todoList) {
       todoList.id = id;
   }
-//   console.log(id)
-//   console.log(todoLists)
-//   console.log(todoList)
-//   todoList.id = id;
 
   return {
     todoList, todoLists,
