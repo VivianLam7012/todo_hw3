@@ -5,6 +5,7 @@ import { compose } from 'redux';
 import { NavLink, Redirect } from 'react-router-dom';
 import { firestoreConnect } from 'react-redux-firebase';
 import { DatePicker, TextInput, Checkbox } from 'react-materialize';
+import { updateNewItem } from '../../store/database/asynchHandler';
 
 
 class AddItemScreen extends Component {
@@ -31,8 +32,13 @@ class AddItemScreen extends Component {
     }
 
     handleDueDateChange = (event) => {
-        console.log(event.value)
-        this.setState({due_date: event});
+        let month = event.getMonth() + 1
+        let date = event.getDate()
+        let year = event.getFullYear()
+
+        let stringDate = year + "-" + month + "-" + date;
+
+        this.setState({due_date: stringDate});
     }
 
     handleCompletedChange = (event) => {
@@ -41,13 +47,19 @@ class AddItemScreen extends Component {
 
     handleSubmit = () => {
         const newItem = {
-            // key: this.props.todoList.items.length,
+            key: this.props.todoList.items.length,
             description: this.state.description,
             assigned_to: this.state.assigned_to,
             due_date: this.state.due_date,
             completed: this.state.completed
         }
         console.log(newItem);
+        const { props, state } = this;
+        const { firebase } = props;
+        const todoList = { ...state };
+        props.registerNewItem(this.props.todoList, firebase, newItem)
+        this.props.history.goBack();
+
         // this.props.buildAddNewItemTransaction(newItem);
     }
 
@@ -73,23 +85,42 @@ class AddItemScreen extends Component {
                     <button class="waves-effect waves-green btn-flat modal-close " onClick={this.handleSubmit}>Submit</button>
                     <button class="waves-effect waves-green btn-flat modal-close" onClick={this.handleCancel}>Cancel</button>
 
-                {/* <button id="item_form_submit_button" className="item_button" onClick={this.handleSubmit}>Submit</button>
-                <button id="item_form_cancel_button" className="item_button" onClick={this.handleCancel}>Cancel</button> */}
             </div>
         )
     }
 }
 
-const mapStateToProps = (state, ownProps) => {
+// const mapStateToProps = (state, ownProps) => {
 
+//     return {
+//         todoLists: state.firestore.ordered.todoLists, 
+//         auth: state.firebase.auth
+//     };
+// };
+
+const mapStateToProps = (state, ownProps) => {
+    const id= ownProps.match.params.id;
+    const todoLists  = state.firestore.data.todoLists;
+    const todoList = todoLists ? todoLists[id] : null;
+  
+    if (todoList) {
+        todoList.id = id;
+    }
+  
     return {
-        todoLists: state.firestore.ordered.todoLists, 
-        auth: state.firebase.auth
+      todoList, todoLists,
+      auth: state.firebase.auth,
     };
-};
+  };
+
+  const mapDispatchToProps = dispatch => ({
+    registerNewItem: (todoList, firebase, newName) => dispatch(updateNewItem(todoList, firebase, newName)),
+    
+
+  });
 
 export default compose(
-    connect(mapStateToProps),
+    connect(mapStateToProps, mapDispatchToProps),
     firestoreConnect([
       { collection: 'todoLists' },
     ]),

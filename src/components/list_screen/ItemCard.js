@@ -72,42 +72,62 @@ class ItemCard extends React.Component {
         const { props } = this;
         const { firebase } = props;
         props.registerRemoveItem(this.props.todoList, firebase);    }
+    
+    editItem = (e) => {
+
+        return (
+           // <ItemScreen item = {this.props.item.id}></ItemScreen>
+            this.props.history.push('/todoList/'+ this.props.todoList.id+ '/' + this.props.item.id + '/itemScreen')
+            
+        );
+    }
+
+    disable = (e) => {
+        console.log("adsfad")
+        e.stopPropagation();
+    }
 
     render() {
         
         const { item } = this.props;  
         return (
-            <div className="card z-depth-0 todo-list-link white lighten-3 ">
+            <div className="card z-depth-0 todo-list-link white lighten-3 " onClick = {(e) => this.editItem(e)}>
                 <div className="card-content grey-text text-darken-3 ">
                 
                     <span className="description">{item.description} </span>
                     <span className = "due_date"> {item.due_date}</span>
-
-                    {/* {/* <span className='completed'> {item.completed == true &&<span>Completed</span>} </span>
-                    <span className= 'not_completed'> {item.completed == false && <span>Pending</span>}
-                    </span> */}
-                    {/* { item.completed ? <span> className = "completed"</span>: <span> className = "not_completed </span>} */} 
-                    {/* <font className = "completed" color = "green" > {item.completed ? "Completed" : "Pending"}</font> */}
                     {item.completed ? <span className='completed'> {item.completed == true &&<font color = "green">Completed</font>} </span>
                         : <span className='not_completed' > {item.completed == false &&<font color = "red">Pending</font>} </span>}
 
                     <div className="assigned">Assigned to: {item.assigned_to}</div>
 
 
-                    <div className = "FAB"> 
+                    <div className = "FAB" onClick = {(e) => this.disable(e)}> 
                         <Fab         
-                            event="hover"
+                            // event="hover"
                             position={{right: 50}}
                             mainButtonStyles={{backgroundColor: '#64b5f6', marginRight: '-350px'}}
                             icon='🖊️'
                         >
-                            <div className = "floating ">
+                            <div className = "floating">
+                                {item.key == 0 ? 
+                                
+                                <a class="btn-floating disabled waves-effect" > <i class="material-icons" 
+                                onClick = {(e) => this.disable(e)}
+                                >arrow_upward</i></a>:
+
                                 <a class="btn-floating red waves-effect" > <i class="material-icons" 
                                     onClick = {(e) => this.moveUp(e, this.props.todoList.items, this.props.todoList.items.indexOf(this.props.item))} 
-                                    >arrow_upward</i></a>
-                                <a class="btn-floating yellow darken-1 waves-effect"><i class="material-icons"
-                                    onClick = {(e) => this.moveDown(e, this.props.todoList.items, this.props.todoList.items.indexOf(this.props.item))}
-                                    >arrow_downward</i></a>
+                                    >arrow_upward</i></a>}
+
+                                {item.key == this.props.todoList.items.length - 1 ? 
+                                
+                                <a class="btn-floating disabled waves-effect" > <i class="material-icons" onClick = {this.disable} >arrow_downward</i></a>:
+
+                                <a class="btn-floating yellow darken-1 waves-effect" > <i class="material-icons" 
+                                onClick = {(e) => this.moveDown(e, this.props.todoList.items, this.props.todoList.items.indexOf(this.props.item))}
+                                >arrow_downward</i></a>}
+                        
                                 <a class="btn-floating green waves-effect"><i class="material-icons"
                                     onClick = {(e) => this.itemRemove(e, this.props.todoList.items, this.props.todoList.items.indexOf(this.props.item))}
                                     >close</i></a>

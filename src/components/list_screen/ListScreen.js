@@ -95,12 +95,12 @@ class ListScreen extends Component {
                 </div>
                 <div className = 'trashCan'>
                     <div>
-                    <Button floating large href="#modal1" className="modal-trigger" >
+                    <Button floating large href="#modal1" className="modal-trigger"  >
                     <i class="material-icons left " >delete</i> 
 
                     </Button>
-                        <Modal id="modal1" header="Delete list?">
-                                                        
+                        <Modal id="modal1" header="Delete list?" actions = {<p modal = "close"> </p>}>
+                                
                             <p><strong>Are you sure you want to delete this list?</strong></p>
                             {/* <button class="waves-effect waves-green btn-flat modal-close">OPEN</button> */}
 

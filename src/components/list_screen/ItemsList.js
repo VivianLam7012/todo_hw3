@@ -186,6 +186,7 @@ class ItemsList extends React.Component {
     render() {
         const todoList = this.props.todoList;
         const items = todoList.items;
+        const history = this.props.history;
         console.log("ItemsList: todoList.id " + todoList.id);
         return (
             <div className="todo-lists section">
@@ -200,7 +201,7 @@ class ItemsList extends React.Component {
                     item.id = item.key;
                     return (
                         <div>
-                         <ItemCard todoList={todoList} item={item} />
+                         <ItemCard todoList={todoList} item={item}  history = {history} />
                         </div>
 
                     );})

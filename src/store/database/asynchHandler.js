@@ -85,3 +85,25 @@ export const updateTop = (listOfLists, firebase, todoList) => (dispatch, getStat
   firestore.collection("todoLists").doc(todoList.id).update({last_updated: todoList.last_updated});
   firestore.collection('todoLists').orderBy('last_updated');
 };
+
+export const updateNewItem = (todoList, firebase, newItem) => (dispatch, getState, {getFirestore}) => {
+  const firestore = getFirestore();
+  // console.log(newItem)
+  // console.log(todoList.items)
+  todoList.items.push(newItem)
+  // console.log(todoList)
+  // console.log(test)
+  // var newItemList = todoList.items.push(newItem);
+  firestore.collection("todoLists").doc(todoList.id).update({items: todoList.items});
+};
+
+export const updateEditItem = (todoList, firebase) => (dispatch, getState, {getFirestore}) => {
+  const firestore = getFirestore();
+  // console.log(newItem)
+  // console.log(todoList.items)
+  // todoList.items.push(newItem)
+  // console.log(todoList)
+  // console.log(test)
+  // var newItemList = todoList.items.push(newItem);
+  firestore.collection("todoLists").doc(todoList.id).update({items: todoList.items});
+};
