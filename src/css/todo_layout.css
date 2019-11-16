@@ -58,8 +58,10 @@ input[type=password]:not(.browser-default):focus:not([readonly]) + label{
 }
 
 .list_item_task_header {
-  margin-right:20%;
-  margin-left: 2%;
+  /* margin-right:20%;
+  margin-left: 2%; */
+  position: absolute;
+  margin-left: 1%
 }
 
 
@@ -68,8 +70,10 @@ input[type=password]:not(.browser-default):focus:not([readonly]) + label{
 }
 
 .list_item_due_date_header {
-  margin-left:8%;
-  margin-right:14%;
+  /* margin-left:8%;
+  margin-right:14%; */
+  position: absolute;
+  margin-left: 300px
 }
 
 .list_item_due_date_header:hover {
@@ -77,7 +81,9 @@ input[type=password]:not(.browser-default):focus:not([readonly]) + label{
 }
 
 .list_item_status_header {
-  margin-left: -6%
+  /* margin-left: -6% */
+  position: relative;
+  margin-left: 480px;
 }
 
 .list_item_status_header:hover {
