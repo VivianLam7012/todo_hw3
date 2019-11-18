@@ -91,7 +91,7 @@ class ItemCard extends React.Component {
         
         const { item } = this.props;  
         return (
-            <div className="card z-depth-0 todo-list-link white waves-effect waves-red lighten-3" onClick = {(e) => this.editItem(e)}>
+            <div className="card z-depth-1 todo-list-link white waves-effect waves-red lighten-3" onClick = {(e) => this.editItem(e)}>
                 <div className="card-content grey-text text-darken-3 ">
                 
                     <span className="description">{item.description} </span>
@@ -133,7 +133,7 @@ class ItemCard extends React.Component {
                                 </div> 
 
                                 <div className = "closeBtn">
-                                    <a class="btn-floating  amber darken-2 waves-effect"><i class="material-icons"
+                                    <a class="btn-floating  amber lighten-1 waves-effect"><i class="material-icons"
                                         onClick = {(e) => this.itemRemove(e, this.props.todoList.items, this.props.todoList.items.indexOf(this.props.item))}
                                         >close</i></a>
                                 </div>
