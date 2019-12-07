@@ -55,7 +55,7 @@ export const updateNewList = (todoList, firebase, object, history) => (dispatch,
   // firestore.push().set(object);
   // console.log(firestore.collection("todoLists").doc("todoLists").update({todoLists: todoLists}))
   firestore.collection('todoLists').add(object).then(ref => history.push('/todoList/' + ref.id));;
-  firestore.collection('todoLists').orderBy('last_updated');
+  // firestore.collection('todoLists').orderBy('last_updated');
 };
 
 export const updateMoveUp = (todoList, firebase) => (dispatch, getState, {getFirestore}) => {
@@ -83,7 +83,7 @@ export const updateDelete = (todoList, firebase, listToRemove) => (dispatch, get
 export const updateTop = (listOfLists, firebase, todoList) => (dispatch, getState, {getFirestore}) => {
   const firestore = getFirestore();
   firestore.collection("todoLists").doc(todoList.id).update({last_updated: todoList.last_updated});
-  firestore.collection('todoLists').orderBy('last_updated');
+  // firestore.collection('todoLists').orderBy('last_updated');
 };
 
 export const updateNewItem = (todoList, firebase, newItem) => (dispatch, getState, {getFirestore}) => {

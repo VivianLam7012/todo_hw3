@@ -29,5 +29,5 @@ const mapStateToProps = (state) => {
 };
 
 export default compose(connect(mapStateToProps), firestoreConnect([
-    { collection: 'todoLists', orderBy: ['last_updated', 'desc']},
+    { collection: 'todoLists'},
   ]))(TodoListLinks);

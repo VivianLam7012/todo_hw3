@@ -35,6 +35,6 @@ const mapDispatchToProps = dispatch => ({
 export default compose(
     connect(null, mapDispatchToProps),
     firestoreConnect([
-      { collection: 'todoLists', orderBy: ['last_updated', 'desc']},
+      { collection: 'todoLists'},
     ]),
 )(TodoListCard);
